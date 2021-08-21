@@ -1,9 +1,9 @@
 // function to change the input value according to the updated specs
 function getInputValue(extracost, perUpgradeCost){
-    const specsInputId = document.getElementById(extracost);
-    const specsUpgrade = specsInputId.innerText;
+    const specsInput = document.getElementById(extracost);
+    const specsUpgrade = specsInput.innerText;
     const specsUpgradeCost = perUpgradeCost;
-    specsInputId.innerText = specsUpgradeCost;
+    specsInput.innerText = specsUpgradeCost;
     // call the calculateCost() function
     calculateCost();
 }
@@ -26,12 +26,14 @@ function getDiscountedPrice(){
     let promoCodeValue = promoCodeId.value;
     const totalPriceValue = parseInt(document.getElementById('total-price').innerText);
     // applying the promocode
-    if(promoCodeValue == 'stevekaku'){
+    if(promoCodeValue.toLowerCase() == 'stevekaku'){
         const discountedPrice = totalPriceValue - (totalPriceValue * 0.20);
         const discountedPriceId = document.getElementById('discounted-total-price');
         discountedPriceId.innerText = discountedPrice;
         // clear the input field
         promoCodeId.value = '';
+        // After using the correct promo code one time, the button will be disabled
+        document.getElementById("apply-btn").disabled = true;
         return discountedPrice;
     }
     else{
@@ -69,5 +71,6 @@ document.getElementById('delivery-btn2').addEventListener('click', function(){
 
 // Click the apply button to get the discount price
 document.getElementById('apply-btn').addEventListener('click', function(){  
-    getDiscountedPrice()
+    // call the getDiscountedPrice() function to calculate discount price
+    getDiscountedPrice();    
 })
